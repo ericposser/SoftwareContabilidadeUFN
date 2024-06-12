@@ -1,0 +1,13 @@
+﻿@model SoftwareContabilidade.Models.Patrimonio
+
+@{
+    ViewData["Title"] = "Patrimonio";
+}
+
+<h3>Deseja excluir este Patrimônio?</h3>
+<div>  
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+    </form>
+</div>

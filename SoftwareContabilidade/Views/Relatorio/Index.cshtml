@@ -1,0 +1,42 @@
+﻿@model IEnumerable<SoftwareContabilidade.Models.Relatorio>
+
+@{
+    ViewData["Title"] = "Index";
+    var totalPreco = ViewData["TotalPreco"];
+    var totalPrecoM = ViewData["TotalPrecoM"];
+    var totalIcmsRecuperar = ViewData["TotalIcmsRecuperar"];
+    var totalIcmsRecolher = ViewData["TotalIcmsRecolher"];
+    var totalPrecoVenda = ViewData["totalPrecoVenda"];
+}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Descrição</th>
+            <th scope="col">Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Valor Total de Patrimônio</td>
+            <td>@totalPreco</td>
+        </tr>
+
+        <tr>
+            <td>Quantidade Total de Mercadoria</td>
+            <td>@totalPrecoM</td>
+        </tr>
+        <tr>
+            <td>Total ICMS a Recuperar</td>
+            <td>@totalIcmsRecuperar</td>
+        </tr>
+        <tr>
+            <td>Total ICMS a Recolher</td>
+            <td>@totalIcmsRecolher</td>
+        </tr>
+        <tr>
+            <td>Caixa - Total Valor Venda Mercadoria</td>
+            <td>@totalPrecoVenda</td>
+        </tr>
+    </tbody>
+</table>

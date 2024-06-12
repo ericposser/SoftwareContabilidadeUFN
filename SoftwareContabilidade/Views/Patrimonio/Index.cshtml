@@ -1,0 +1,92 @@
+﻿@model IEnumerable<SoftwareContabilidade.Models.Patrimonio>
+
+@{
+    ViewData["Title"] = "Patrimonio";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+
+<div id="mensagem-toastr" style="display: none; position: fixed; top: 20px; right: 20px; background-color: #4CAF50; color: white; padding: 15px; border-radius: 5px; z-index: 9999;">
+    <span id="mensagem-texto"></span>
+    <div id="progresso-toastr" style="height: 5px; background-color: #2E8B57; width: 100%;"></div>
+</div>
+
+<p>
+    <a class="btn btn-success" asp-action="Create">Cadastrar Patrimônio</a>
+</p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fornecedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.preco)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nome)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fornecedor.nome)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.preco)
+            </td>
+            <td>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.id">Editar</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.id">Excluir</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<!-- Adicione o jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Adicione o Toastr.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<!-- Adicione o seu script customizado para exibir o Toastr -->
+<script src="~/Scripts/seu-script-toastr.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Verifica se há uma mensagem TempData
+        var mensagem = '@TempData["Mensagem"]';
+
+        // Se houver uma mensagem, exibe usando Toastr
+        if (mensagem !== '') {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+            // Exibe o Toastr com a mensagem do TempData
+            toastr["success"](mensagem);
+        }
+    });
+
+</script>

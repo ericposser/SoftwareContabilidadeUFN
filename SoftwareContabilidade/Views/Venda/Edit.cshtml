@@ -1,0 +1,59 @@
+﻿@model SoftwareContabilidade.Models.Venda
+
+@{
+    ViewData["Title"] = "Venda";
+}
+
+<h4>Editar Venda</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="id" />
+            <div class="form-group">
+                <label asp-for="quantidade" class="control-label"></label>
+                <input asp-for="quantidade" class="form-control" type="number" min="0"/>
+                <span asp-validation-for="quantidade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="precoVenda" class="control-label"></label>
+                <input asp-for="precoVenda" class="form-control" />
+                <span asp-validation-for="precoVenda" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cliente" class="control-label"></label>
+                <select class="form-control form-select" aria-label="Selecione um cliente" asp-for="Cliente" asp-items="ViewBag.Clientes">
+                    <option value="">Selecione um cliente...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mercadoria" class="control-label"></label>
+                <select class="form-control form-select" aria-label="Selecione uma mercadoria" asp-for="Mercadoria" asp-items="ViewBag.Mercadorias">
+                    <option value="">Selecione uma mercadoria...</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<style>
+    /* Oculta as setas de aumento e diminuição em campos do tipo number */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield; /* Firefox */
+    }
+</style>

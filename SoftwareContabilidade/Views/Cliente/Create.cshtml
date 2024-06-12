@@ -1,0 +1,120 @@
+﻿@model SoftwareContabilidade.Models.Cliente
+
+@{
+    ViewData["Title"] = "Cliente";
+}
+
+<h4>Cadastrar Cliente</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="nome" class="control-label"></label>
+                <input asp-for="nome" class="form-control" />
+                <span asp-validation-for="nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="cidade" class="control-label"></label>
+                <input asp-for="cidade" class="form-control" />
+                <span asp-validation-for="cidade" class="text-danger"></span>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="tipoDocumento" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    CPF
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="tipoDocumento" id="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    CNPJ
+                </label>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.cnpj, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.cnpj, new { htmlAttributes = new { @class = "form-control", maxlength = "18" } })
+                @Html.ValidationMessageFor(model => model.cnpj, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.cpf, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.cpf, new { htmlAttributes = new { @class = "form-control", maxlength = "14" } })
+                @Html.ValidationMessageFor(model => model.cpf, "", new { @class = "text-danger" })
+            </div>
+
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    function habilitarCampo(campo, habilitar) {
+        document.getElementById(campo).disabled = !habilitar;
+        document.getElementById(campo).value = ''; // Limpa o valor do campo ao desabilitar
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var radioCpf = document.getElementById('flexRadioDefault1');
+        var radioCnpj = document.getElementById('flexRadioDefault2');
+        var inputCpf = document.getElementById('cpf');
+        var inputCnpj = document.getElementById('cnpj');
+
+        // Desabilita ambos os campos de CPF e CNPJ quando a página é carregada
+        habilitarCampo('cpf', false);
+        habilitarCampo('cnpj', false);
+
+        radioCpf.addEventListener('change', function () {
+            if (radioCpf.checked) {
+                habilitarCampo('cpf', true);
+                habilitarCampo('cnpj', false);
+                inputCnpj.disabled = true; // Desabilita o campo CNPJ ao selecionar CPF
+            }
+        });
+
+        radioCnpj.addEventListener('change', function () {
+            if (radioCnpj.checked) {
+                habilitarCampo('cnpj', true);
+                habilitarCampo('cpf', false);
+                inputCpf.disabled = true; // Desabilita o campo CPF ao selecionar CNPJ
+            }
+        });
+    });
+
+
+    function formatCnpj(cnpj) {
+        cnpj = cnpj.replace(/\D/g, '');
+        return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+    }
+
+    function formatCpf(cpf) {
+        cpf = cpf.replace(/\D/g, '');
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    }
+
+    document.getElementById('cnpj').addEventListener('input', function (event) {
+        var input = event.target;
+        var formatted = formatCnpj(input.value);
+        input.value = formatted;
+    });
+
+    document.getElementById('cpf').addEventListener('input', function (event) {
+        var input = event.target;
+        var formatted = formatCpf(input.value);
+        input.value = formatted;
+    });
+</script>
+
+
+
+

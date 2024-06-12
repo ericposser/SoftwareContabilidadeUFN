@@ -1,0 +1,13 @@
+﻿@model SoftwareContabilidade.Models.Compra
+
+@{
+    ViewData["Title"] = "Compra";
+}
+
+<h3>Deseja excluir esta compra?</h3>
+<div> 
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+    </form>
+</div>

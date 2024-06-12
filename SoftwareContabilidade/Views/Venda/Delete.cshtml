@@ -1,0 +1,15 @@
+﻿@model SoftwareContabilidade.Models.Venda
+
+@{
+    ViewData["Title"] = "Venda";
+}
+
+<h3>Deseja excluir esta venda?</h3>
+<div>
+    <hr />  
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+    </form>
+</div>
